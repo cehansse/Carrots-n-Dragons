@@ -1,4 +1,5 @@
 from code.random_walk import RandomWalker
+from code.agents.prey_predator import Prey, Predator
 
 class Hunter(RandomWalker):
     """
