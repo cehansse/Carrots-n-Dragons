@@ -1,6 +1,7 @@
 from code.random_walk import RandomWalker
 from code.agents.plant import Plant
 from code.agents.tree import Tree
+from code.agents.hunter import Hunter
 
 class Prey(RandomWalker):
     """
@@ -40,6 +41,7 @@ class Prey(RandomWalker):
         else:
             next_moves = self.model.grid.get_neighborhood(self.pos, self.moore, True)
             predator = False
+            hunter = False                                                           #HUNTERMODIF
             food = False
             for next_move in next_moves:
                 content_cell = self.model.grid.get_cell_list_contents(next_move)
@@ -48,7 +50,7 @@ class Prey(RandomWalker):
                     # on retient le mouvement.
                     predator_move = next_move
                     predator = True
-                content = [obj for obj in content_cell if isinstance(obj, Predator)]    #HUNTERMODIF to
+                content = [obj for obj in content_cell if isinstance(obj, Hunter)]    #HUNTERMODIF to
                 if len(content) > 0:
                     # on retient le mouvement.
                     hunter_move = next_move
@@ -246,25 +248,28 @@ class Predator(RandomWalker):
 
 
         if not_moved and self.energy < self.model.wolf_gain_from_food*4: ################################################################################################################################################
-            for i in range(2):                                                      #HUNTERMODIF to
-                content_cell = self.model.grid.get_cell_list_contents(next_move)
-                content = [obj for obj in content_cell if isinstance(obj, Predator)]
-                if len(content) > 0:
-                    # on retient le mouvement.
-                    hunter_move = next_move
-                    # Prendre la position opposé.
-                    obj = self.model.grid.get_cell_list_contents(hunter_move)[0]
-                    if obj.pos[0] < x:
-                        x += 1
-                    elif obj.pos[0] > x:
-                        x -= 1
-                    if obj.pos[1] < y:
-                        y += 1
-                    elif obj.pos[1] > y:
-                        y -= 1
-                    new_pos = x, y
-                    not_moved = False
-                    self.model.grid.move_agent(self, new_pos)
+            for i in range(2):
+                next_moves = self.model.grid.get_neighborhood(self.pos, self.moore, True)                                                    #HUNTERMODIF to
+                for next_move in next_moves:
+                    content_cell = self.model.grid.get_cell_list_contents(next_move)
+                    content = [obj for obj in content_cell if isinstance(obj, Hunter)]
+                    if len(content) > 0:
+                        # on retient le mouvement.
+                        hunter_move = next_move
+                        # Prendre la position opposé.
+                        obj = self.model.grid.get_cell_list_contents(hunter_move)[0]
+                        if obj.pos[0] < x:
+                            x += 1
+                        elif obj.pos[0] > x:
+                            x -= 1
+                        if obj.pos[1] < y:
+                            y += 1
+                        elif obj.pos[1] > y:
+                            y -= 1
+                        new_pos = x, y
+                        not_moved = False
+                        self.model.grid.move_agent(self, new_pos)
+                        break
                                                                                         #HUNTERMODIF
             if not_moved:
                 for i in range(2):

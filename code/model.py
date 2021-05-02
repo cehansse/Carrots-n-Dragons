@@ -16,7 +16,6 @@ from mesa.datacollection import DataCollector
 from code.agents.prey_predator import Prey, Predator
 from code.agents.plant import Plant
 from code.agents.tree import Tree
-from code.agents.hunter import Hunter
 from code.schedule import RandomActivationByBreed
 
 
