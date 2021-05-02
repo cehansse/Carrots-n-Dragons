@@ -13,9 +13,7 @@ from mesa import Model
 from mesa.space import MultiGrid
 from mesa.datacollection import DataCollector
 
-from code.agents.prey_predator import Prey, Predator, Hunter
-from code.agents.plant import Plant
-from code.agents.tree import Tree
+from code.agents.prey_predator import Prey, Predator, Hunter, Plant, Tree
 from code.schedule import RandomActivationByBreed
 
 

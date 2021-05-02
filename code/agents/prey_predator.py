@@ -1,6 +1,5 @@
 from code.random_walk import RandomWalker
-from code.agents.plant import Plant
-from code.agents.tree import Tree
+from mesa import Agent
 
 class Prey(RandomWalker):
     """
@@ -363,3 +362,40 @@ class Hunter(RandomWalker):
                 for kill in victim:
                     self.model.grid._remove_agent(self.pos, kill)
                     self.model.schedule.remove(kill)
+
+class Plant(Agent):
+    """
+    Species that grows at a fixed rate and is eaten by prey.
+    """
+
+    def __init__(self, unique_id, pos, model, fully_grown, countdown):
+        super().__init__(unique_id, model)
+        # attributes
+        self.fully_grown = fully_grown
+        self.countdown = countdown
+        self.pos = pos
+
+    def step(self):
+        if not self.fully_grown:
+            if self.countdown <= 0:
+                # Set as fully grown
+                self.fully_grown = True
+                self.countdown = self.model.grass_regrowth_time
+            else:
+                self.countdown -= 1
+
+class Tree(Agent):
+    """
+    Agents le plus basique, on le placera sur les cases sur lesquelles il n'y a rien à faire
+    dans le futur, pourrais devenir une case présentant un moins de risques pour une proies
+    d'être mangée par un prédateur (la proie se "cache" dans la forêt)
+    """
+
+
+    def __init__(self, unique_id, pos, model):
+        super().__init__(unique_id, model)
+        # attributes
+        self.pos = pos
+
+    def step(self):
+        pass

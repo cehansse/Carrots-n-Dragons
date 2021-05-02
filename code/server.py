@@ -2,9 +2,7 @@ from mesa.visualization.ModularVisualization import ModularServer
 from mesa.visualization.modules import CanvasGrid, ChartModule
 from mesa.visualization.UserParam import UserSettableParameter
 
-from code.agents.prey_predator import Prey, Predator, Hunter
-from code.agents.tree import Tree
-from code.agents.plant import Plant
+from code.agents.prey_predator import Prey, Predator, Hunter, Plant, Tree
 from code.model import WolfSheep
 """
 Ce code est basé sur le code "wolf_sheep" donné en exemple par la documentation de la librairie
