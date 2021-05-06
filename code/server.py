@@ -112,7 +112,7 @@ model_params = {
         "slider", "Steps per year", 60, 20, 1000, 10 #new
     ), #new
     "nb_of_hunters": UserSettableParameter(
-        "slider", "number of hunters", 8, 0, 20
+        "slider", "number of hunters", 10, 0, 20
     ),
 }
 
