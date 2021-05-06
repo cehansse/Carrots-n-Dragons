@@ -1,5 +1,7 @@
 from code.random_walk import RandomWalker
 from mesa import Agent
+import random
+
 
 class Prey(RandomWalker):
     """
@@ -87,7 +89,12 @@ class Prey(RandomWalker):
                             y += 1
                         elif obj.pos[1] < y:
                             y -= 1
-                        new_pos = x,y
+                        if obj.pos[0] != x and obj.pos[1] != y:
+                            new_pos = random.choice([(x, y), (obj.pos[0], y), (x, obj.pos[1])])
+                        elif obj.pos[0] == x:
+                            new_pos = random.choice([(x, y), (x-1, y), (x+1, obj.pos[1])])
+                        else:
+                            new_pos = random.choice([(x, y), (x, y-1), (x, y+1)])
                         not_moved = False
                         self.model.grid.move_agent(self, new_pos)
                         break
@@ -122,7 +129,12 @@ class Prey(RandomWalker):
                         y += 1
                     elif obj.pos[1] > y:
                         y -= 1
-                    new_pos = x, y
+                    if obj.pos[0] != x and obj.pos[1] != y:
+                        new_pos = random.choice([(x, y), (obj.pos[0], y), (x, obj.pos[1])])
+                    elif obj.pos[0] == x:
+                        new_pos = random.choice([(x, y), (x - 1, y), (x + 1, obj.pos[1])])
+                    else:
+                        new_pos = random.choice([(x, y), (x, y - 1), (x, y + 1)])
                     self.model.grid.move_agent(self, new_pos)
                                                                                     #HUNTERMODIF
                 #Sinon, il va sur la nourriture.
@@ -264,7 +276,12 @@ class Predator(RandomWalker):
                             y += 1
                         elif obj.pos[1] > y:
                             y -= 1
-                        new_pos = x, y
+                        if obj.pos[0] != x and obj.pos[1] != y:
+                            new_pos = random.choice([(x, y), (obj.pos[0], y), (x, obj.pos[1])])
+                        elif obj.pos[0] == x:
+                            new_pos = random.choice([(x, y), (x-1, y), (x+1, obj.pos[1])])
+                        else:
+                            new_pos = random.choice([(x, y), (x, y-1), (x, y+1)])
                         not_moved = False
                         self.model.grid.move_agent(self, new_pos)
                         self.energy -= 1
