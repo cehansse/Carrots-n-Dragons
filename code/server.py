@@ -82,7 +82,7 @@ model_params = {
         "slider", "Carrot Regrowth Time", 7, 1, 50
     ),
     "initial_sheep": UserSettableParameter(
-        "slider", "Initial Rabbit Population", 300, 10, 500
+        "slider", "Initial Rabbit Population", 250, 10, 500
     ),
     "sheep_reproduce": UserSettableParameter(
         "slider", "Rabbit Reproduction Rate", 0.0, 0.00, 0.1, 0.001
@@ -109,10 +109,10 @@ model_params = {
         "slider", "trees ratio", 0.2, 0, 1, 0.01
     ),
     "YEAR": UserSettableParameter( #new
-        "slider", "Steps per year", 80, 20, 1000, 10 #new
+        "slider", "Steps per year", 60, 20, 1000, 10 #new
     ), #new
     "nb_of_hunters": UserSettableParameter(
-        "slider", "number of hunters", 0, 0, 20
+        "slider", "number of hunters", 8, 0, 20
     ),
 }
 

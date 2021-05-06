@@ -137,8 +137,8 @@ class WolfSheep(Model):
 
         # create hunters
         for i in range(self.nb_of_hunters):
-            x = self.random.randrange(self.width-14, self.width-6) # HUNTERMODIF
-            y = self.random.randrange(self.height-14, self.height-6) # HUNTERMODIF
+            x = self.random.randrange(self.width-13, self.width-7) # HUNTERMODIF
+            y = self.random.randrange(self.height-13, self.height-7) # HUNTERMODIF
             hunter = Hunter(self.next_id(), (x, y), self)
             self.grid.place_agent(hunter, (x, y))
             self.schedule.add(hunter)

@@ -25,7 +25,7 @@ class Prey(RandomWalker):
         #Tous les 20 steps, le primtemps durent 5 steps.
         if self.model.schedule.steps%self.model.YEAR <= self.model.YEAR/4 and self.age > self.model.YEAR/2 :
             spring = True
-            reproduce_prob = self.model.sheep_reproduce + 0.3
+            reproduce_prob = self.model.sheep_reproduce + 0.2
             if reproduce_prob > 1 :
                 reproduce_prob = 1
         else :
@@ -111,7 +111,7 @@ class Prey(RandomWalker):
 
                     new_pos = x, y
                     self.model.grid.move_agent(self, new_pos)
-                if hunter:                                                          #HUNTERMODIF to
+                elif hunter:                                                          #HUNTERMODIF to
                     # Prendre la position opposé.
                     obj = self.model.grid.get_cell_list_contents(hunter_move)[0]
                     if obj.pos[0] < x:
@@ -267,6 +267,7 @@ class Predator(RandomWalker):
                         new_pos = x, y
                         not_moved = False
                         self.model.grid.move_agent(self, new_pos)
+                        self.energy -= 1
                         break
                                                                                         #HUNTERMODIF
             if not_moved:
@@ -348,12 +349,13 @@ class Hunter(RandomWalker):
     #On choisit un mouvement aléatoire
         #self.random_move() #HUNTERMODIF
     #agent of DEATH
-        this_cell = self.model.grid.get_cell_list_contents([self.pos])
-        victim = [obj for obj in this_cell if isinstance(obj, Prey)] #HUNTERMODIF
-        #victim.extend([obj for obj in this_cell if isinstance(obj, Predator)]) #HUNTERMODIF
+        #check_cell = self.model.grid.get_neighborhood(self.pos, self.moore, False, 1) avec for pour passer toutes les cases
+        check_cell = self.model.grid.get_cell_list_contents([self.pos])
+        victim = [obj for obj in check_cell if isinstance(obj, Predator)] #HUNTERMODIF
+        #victim.extend([obj for obj in this_cell if isinstance(obj, Prey)]) #HUNTERMODIF
         if len(victim) > 0:
             #shutdown
-            if self.random.random() >= 1/10:
+            if self.random.random() >= 1/5:
                 target = self.random.choice(victim)
                 self.model.grid._remove_agent(self.pos, target)
                 self.model.schedule.remove(target)
